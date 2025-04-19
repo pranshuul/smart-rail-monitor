@@ -1,0 +1,7 @@
+Flask
+paho-mqtt
+requests
+pandas
+numpy
+scikit-learn
+plotly

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Track Condition Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <h1>Smart Railway Track Monitoring</h1>
+  <div id="chart"></div>
+  <script>
+    async function fetchData() {
+      const resp = await fetch("/data");
+      const data = await resp.json();
+      const ts = data.map((x) => x.entry_id);
+      const d1 = data.map((x) => +x.field1);
+      const d2 = data.map((x) => +x.field2);
+      const a = data.map((x) => x.anomaly);
+      Plotly.newPlot(
+        "chart",
+        [
+          {x: ts, y: d1, name: "Ultrasonic1"},
+          {x: ts, y: d2, name: "Ultrasonic2"},
+          {x: ts, y: a, name: "Anomaly", yaxis: "y2", mode: "markers"},
+        ],
+        {
+          yaxis: {title: "Distance (cm)"},
+          yaxis2: {overlaying: "y", side: "right", title: "Anomaly"},
+        },
+      );
+    }
+    fetchData();
+  </script>
+</body>
+
+</html>
