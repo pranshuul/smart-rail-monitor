@@ -1,0 +1,9 @@
+:root {
+  --teal: #008080;
+  --orange: #FF5722;
+  --light-gray: #F8F9FA;
+}
+body { background: var(--light-gray); }
+h1 { color: var(--teal); }
+.text-teal { color: var(--teal) !important; }
+.text-orange { color: var(--orange) !important; }

@@ -1,6 +1,7 @@
 Flask
 paho-mqtt
 requests
+joblib
 pandas
 numpy
 scikit-learn

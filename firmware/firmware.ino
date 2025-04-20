@@ -1,12 +1,13 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <BluetoothSerial.h>
+#include "Model.h"
 
 // Wi‑Fi & MQTT settings
 typedef const char* cstr;
 cstr ssid           = "Pranshul's OnePlus Twelve";
 cstr password       = "t4eccvfn";
-cstr mqtt_server    = "mqtt.thingspeak.com";
+cstr mqtt_server    = "mqtt3.thingspeak.com";
 int mqtt_port       = 1883;
 cstr mqtt_user      = "3GDTO22V308LUSY5";
 cstr mqtt_pass      = "";
@@ -80,6 +81,12 @@ void loop(){
   long d2 = getDistance(trigPin2,echoPin2);
   int ir1 = digitalRead(irSensor1);
   int ir2 = digitalRead(irSensor2);
+
+  float raw[4] = {d1, d2, ir1, ir2};
+
+  float scaled[4];
+  scale_input(raw, scaled);
+  int test_alert = model_predict(scaled);
 
   bool sensor_alert = (ir1==1)||(ir2==1)||(d1>6)||(d1<=2)||(d2>6)||(d2<=2);
   bool combined_alert = sensor_alert || ml_alert;
